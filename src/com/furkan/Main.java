@@ -12,25 +12,40 @@ public class Main {
     private static String[] list1 = {"pouring gas", "laughing", "lighting match", "fire"};
     private static String[] list2 = {"buying gas", "pouring gas", "crying", "fire", "smoke"};
     //*/
+
+    // exampledata.json
+    /*
+    private static String[] list1 = {"fight", "gunshot", "fleeing"};
+    private static String[] list2 = {"gunshot", "falling", "fleeing"};
+    //*/
+    // exampledata2.json
     /*
     private static String[] list1 = {"shouting", "fight", "fleeing"};
     private static String[] list2 = {"fight", "gunshot", "panic", "fleeing"};
     private static String[] list3 = {"anger", "shouting"};
     //*/
+    // exampledata3.json
     /*
     private static String[] list1 = {"argument", "stuff", "pointing"};
     private static String[] list2 = {"press brief", "scandal", "pointing"};
     private static String[] list3 = {"bribe", "coverup"};
     //*/
-    ///*
+    // exampledata4.json
+    /*
     private static String[] list1 = {"shadowy figure", "demands", "scream", "siren"};
     private static String[] list2 = {"shadowy figure", "pointed gun", "scream"};
+    //*/
+    //*
+    private static String[] list1 = {"argument", "stuff", "pointing"};
+    private static String[] list2 = {"press brief", "stuff", "scandal", "pointing"};
+    private static String[] list3 = {"bribe", "coverup", "stuff"};
+    private static String[] list4 = {"bribe", "pointing"};
     //*/
 
     private static String lastAddedString = null;
 
     public static void main(String[] args) {
-        List<String[]> listOfArrays = addArraysToList(list1, list2);
+        List<String[]> listOfArrays = addArraysToList(list1, list2, list3, list4);
         List<LinkedList<String>> witnesses = addListOfArraysToListOfLinkedLists(listOfArrays);
         List<List<String>> scenarios = new ArrayList<List<String>>();
         boolean isScenarioFinished = false;
@@ -148,7 +163,11 @@ public class Main {
             if (indexOfAccount > -1 && indexOfAccount < nextWitness.size() -1) { // if account is found and not the last element (has children)
                 List<String> followingAccountsFromNextWitness = nextWitness.subList(indexOfAccount + 1, nextWitness.size());
                 if (!currentScenario.containsAll(followingAccountsFromNextWitness) && isFollowingAccountsFromNextWitnessSubListChildOfLastElementOfCurrentScenario(followingAccountsFromNextWitness, currentScenario, witnesses)) {
-                    followingAccounts.addAll(followingAccountsFromNextWitness);
+                    LinkedList<String> currentWitness = witnesses.get(i);
+                    // TODO: Warning
+                    if (Collections.indexOfSubList(currentWitness, followingAccountsFromNextWitness) == -1) {
+                        followingAccounts.addAll(followingAccountsFromNextWitness);
+                    }
                 }
             }
         }
